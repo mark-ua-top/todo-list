@@ -4,6 +4,8 @@ const List = styled.ul`
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 `;
 
 const Item = styled.li`
@@ -14,17 +16,20 @@ const Item = styled.li`
   padding: 20px;
   width: 400px;
   border: 1px solid #000000;
+  background: #757575ff;
+  border-radius: 8px;
 `;
 
 const Text = styled.p`
   margin: 0;
   flex-grow: 1;
+  color: lightgray;
 
-  ${({ completed }) =>
-        completed &&
-        css`
+  ${(props) =>
+    props.$completed &&
+    css`
       text-decoration: line-through;
-      opacity: 0.6;
+      color: gray;
     `}
 `;
 
@@ -43,23 +48,21 @@ const DeleteBtn = styled.button`
 `;
 
 const TodoList = ({ todo, onDelete, onToggle }) => {
-    return (
-        <List>
-            {todo.map((item) => (
-                <Item key={item.id}>
-                    <input
-                        type="checkbox"
-                        checked={item.completed}
-                        onChange={() => onToggle(item.id)}
-                    />
-
-                    <Text completed={item.completed}>{item.text}</Text>
-
-                    <DeleteBtn onClick={() => onDelete(item.id)}>Delete</DeleteBtn>
-                </Item>
-            ))}
-        </List>
-    );
+  return (
+    <List>
+      {todo.map((item) => (
+        <Item key={item.id}>
+          <input
+            type="checkbox"
+            checked={item.completed}
+            onChange={() => onToggle(item.id)}
+          />
+          <Text $completed={item.completed}>{item.text}</Text>
+          <DeleteBtn onClick={() => onDelete(item.id)}>Delete</DeleteBtn>
+        </Item>
+      ))}
+    </List>
+  );
 };
 
 export default TodoList;
