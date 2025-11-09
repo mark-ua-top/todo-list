@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 import styled from "styled-components";
 
 const InputFilter = styled.input`
@@ -13,13 +14,18 @@ const Des = styled.p`
   color: lightgray;
 `;
 
-export default function Filter({ value, onChange }) {
-  return (
-    <Des>
-      Фільтер по імені
-      <span>
-        <InputFilter value={value} onChange={onChange} />
-      </span>
-    </Des>
-  );
+class Filter extends Component {
+  render() {
+    const { value, onChange } = this.props;
+    return (
+      <Des>
+        Фільтер по імені
+        <span>
+          <InputFilter value={value} onChange={onChange} />
+        </span>
+      </Des>
+    );
+  }
 }
+
+export default Filter;

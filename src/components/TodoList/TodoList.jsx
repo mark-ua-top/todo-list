@@ -1,21 +1,21 @@
-import styled, { css } from "styled-components";
+import React, { Component } from "react";
+import styled from "styled-components";
 
 const List = styled.ul`
   display: flex;
-  align-items: center;
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
+  align-items: center;
 `;
 
 const Item = styled.li`
   display: flex;
   align-items: center;
-  flex-direction: row;
   gap: 10px;
   padding: 20px;
   width: 400px;
-  border: 1px solid #000000;
+  border: 1px solid #000;
   background: #757575ff;
   border-radius: 8px;
 `;
@@ -23,14 +23,9 @@ const Item = styled.li`
 const Text = styled.p`
   margin: 0;
   flex-grow: 1;
-  color: lightgray;
-
-  ${(props) =>
-    props.$completed &&
-    css`
-      text-decoration: line-through;
-      color: gray;
-    `}
+  color: ${(props) => (props.completed ? "gray" : "lightgray")};
+  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
+  transition: color 0.2s, text-decoration 0.2s;
 `;
 
 const DeleteBtn = styled.button`
@@ -47,22 +42,26 @@ const DeleteBtn = styled.button`
   }
 `;
 
-const TodoList = ({ todo, onDelete, onToggle }) => {
-  return (
-    <List>
-      {todo.map((item) => (
-        <Item key={item.id}>
-          <input
-            type="checkbox"
-            checked={item.completed}
-            onChange={() => onToggle(item.id)}
-          />
-          <Text $completed={item.completed}>{item.text}</Text>
-          <DeleteBtn onClick={() => onDelete(item.id)}>Delete</DeleteBtn>
-        </Item>
-      ))}
-    </List>
-  );
-};
+class TodoList extends Component {
+  render() {
+    const { todo, onDelete, onToggle } = this.props;
+
+    return (
+      <List>
+        {todo.map((item) => (
+          <Item key={item.id}>
+            <input
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => onToggle(item.id)}
+            />
+            <Text completed={item.completed}>{item.text}</Text>
+            <DeleteBtn onClick={() => onDelete(item.id)}>Delete</DeleteBtn>
+          </Item>
+        ))}
+      </List>
+    );
+  }
+}
 
 export default TodoList;
