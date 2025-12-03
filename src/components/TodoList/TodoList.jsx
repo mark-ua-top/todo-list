@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import styled from "styled-components";
 
 const List = styled.ul`
@@ -25,7 +25,6 @@ const Text = styled.p`
   flex-grow: 1;
   color: ${(props) => (props.completed ? "gray" : "lightgray")};
   text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
-  transition: color 0.2s, text-decoration 0.2s;
 `;
 
 const DeleteBtn = styled.button`
@@ -35,14 +34,10 @@ const DeleteBtn = styled.button`
   color: white;
   border-radius: 4px;
   cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    background: #d93636;
-  }
 `;
 
 class TodoList extends Component {
+
   render() {
     const { todo, onDelete, onToggle } = this.props;
 

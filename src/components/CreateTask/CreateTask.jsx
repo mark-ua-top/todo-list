@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import styled from "styled-components";
 
 const TaskForm = styled.form`
@@ -19,25 +19,17 @@ const TaskInput = styled.input`
 
 const AddButton = styled.button`
   padding: 8px 16px;
-  background-color: #28a745; 
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #218838;
-  }
 `;
 
 class CreateTask extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            text: "",
-        };
+        this.state = { text: "" };
     }
 
     handleChange = (event) => {
@@ -46,23 +38,21 @@ class CreateTask extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { text } = this.state;
-        if (text.trim() === "") return;
-        this.props.onAdd(text);
+        if (!this.state.text.trim()) return;
+        this.props.onAdd(this.state.text);
         this.setState({ text: "" });
     };
 
     render() {
-        const { text } = this.state;
         return (
             <TaskForm onSubmit={this.handleSubmit}>
                 <TaskInput
                     type="text"
-                    value={text}
+                    value={this.state.text}
                     onChange={this.handleChange}
                     placeholder="Додайте завдання"
                 />
-                <AddButton type="submit">Додати</AddButton>
+                <AddButton type="submit" disabled={this.props.disabled}>Додати</AddButton>
             </TaskForm>
         );
     }

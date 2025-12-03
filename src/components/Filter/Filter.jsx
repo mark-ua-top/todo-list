@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import styled from "styled-components";
 
 const InputFilter = styled.input`
@@ -15,6 +15,7 @@ const Des = styled.p`
 `;
 
 class Filter extends Component {
+
   render() {
     const { value, onChange } = this.props;
     return (
